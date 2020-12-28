@@ -88,7 +88,7 @@ if __name__ == "__main__":
             print(songs)
             os.startfile(os.path.join(music_dir, songs[0]))
 
-        elif 'the time' in query:
+        elif 'what is the time' in query:
             strTime = datetime.datetime.now().strftime("%H:%M:%S")
             speak(f"Sir The Time Is {strTime}")
             print(f" Sir, The Time Is {strTime}")
@@ -107,3 +107,29 @@ if __name__ == "__main__":
             except Exception as e:
                 print(e)
                 speak("Sorry Sir, I Am Not Able To Send This Email.")
+        
+        elif 'hi' in query:
+            speak("hello sir how are you?")
+
+        elif 'tell me a joke' in  query:
+            speak("which button cannot be pressed, beep, beep THE BELLYBUTTON")
+
+        elif 'where am i' in query:
+            speak("searching through your location")
+            speak("as per gps you have been located near thane,maharashtra")
+
+        elif 'roast alexa' in query:
+            speak("I am The Origenaile!!")
+        
+        elif 'thank you for your service' in query:
+            speak("You Are Welcome Sir!!")
+        
+        elif 'what is my schedule today' in query:
+            speak("according to your to do list")
+            speak("today you have only two thing to do")
+            speak("coding, Maths")
+
+        elif 'sing me a song' in query:
+            speak("singing a jist of bella ciao")
+            speak("una matina mi sono alzato, o bella ciao bella ciao bella ciao ciao ciao cioa")
+            speak("these are the first three lines of the song, do you like it")
