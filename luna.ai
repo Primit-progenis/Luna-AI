@@ -1,42 +1,37 @@
-import pyttsx3
+import  pyttsx3
 import speech_recognition as sr
 import datetime
+import smtplib
 import wikipedia
 import webbrowser
 import os
-import smtplib
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
-#print(voices[1].id)
 engine.setProperty('voice', voices[1].id)
 
 def speak(audio):
     engine.say(audio)
     engine.runAndWait()
 
-def wishMe():
+def  wishMe():
     hour = int(datetime.datetime.now().hour)
     if hour>= 0 and hour<12:
-        speak("Good Morning!")
-
-    elif hour>=12 and hour<18:
-        speak("Good Afternoon!")
-
+        speak("Good Morning")
+    elif hour>= 12 and hour< 18:
+        speak("Good Afternoon")
     else:
-        speak("Good Evening!")
-
-    speak("Hi I Am Luna Sir, How May I Help You")
+        speak("Good Evening")
+        
+    speak("Hi I am luna, How Can I Help you")
 
 def takeCommand():
-    # it takes microphone input from the user and gives string output
-
+    
     r = sr.Recognizer()
     with sr.Microphone() as source:
         print("Listening...")
-        r.pause_threshold = 1
+        r.pause_threshold = 1.5
         audio = r.listen(source)
-
     try:
         print("Recognizing...")
         query = r.recognize_google(audio, language='en-in')
@@ -55,13 +50,11 @@ def sendEmail(to, content):
     server.sendmail('yourgemail-here', 'to, content')
     server.close()
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     wishMe()
-    # while True:
     if 1:
         query = takeCommand().lower()
-        
-        # logic for executing tasks based on query
+
         if 'wikipedia' in query:
             speak('Searching Throught Wikipedia...')
             query = query.replace("wikipedia","")
@@ -70,32 +63,37 @@ if __name__ == "__main__":
             print(results)
             speak(results)
 
-        elif 'open youtube' in query:
-            webbrowser.open("youtube.com")
+        elif 'what is the time' in query:
+            strTime = datetime.datetime.now().strftime("%H:%M")
+            speak(f"Sir The Time Is {strTime}")
+            print(F"The Time Is {strTime}")
+
+        elif 'hi' in query:
+            speak("hi how are you")
+        
+        elif 'tell me a joke' in query:
+            speak("how many soccer players does it take to change a light bulb?")
+            speak("i don't know that")
+        
+        elif 'where am i' in query:
+            speak("According To The GPS You Are in Thane")        
+
+        elif 'what can i listen today' in query:
+            speak("bad guy")
+            speak("therefore i am")
+            speak("you should see me in a crown")
 
         elif 'open google' in query:
             webbrowser.open("google.com")
+
+        elif 'open youtube' in query:
+            webbrowser.open("youtube.com")
 
         elif 'open twitter' in query:
             webbrowser.open("twitter.com")
 
         elif 'open github' in query:
             webbrowser.open("github.com")
-
-        elif 'play music' in query:
-            music_dir = 'C:\\test.music'
-            songs = os.listdir(music_dir)
-            print(songs)
-            os.startfile(os.path.join(music_dir, songs[0]))
-
-        elif 'what is the time' in query:
-            strTime = datetime.datetime.now().strftime("%H:%M:%S")
-            speak(f"Sir The Time Is {strTime}")
-            print(f" Sir, The Time Is {strTime}")
-
-        elif 'open code' in query:
-            codepath = "C:\\Users\\user\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
-            os.startfile(codepath)
 
         elif 'email to john' in query:
             try:
@@ -107,29 +105,7 @@ if __name__ == "__main__":
             except Exception as e:
                 print(e)
                 speak("Sorry Sir, I Am Not Able To Send This Email.")
-        
-        elif 'hi' in query:
-            speak("hello sir how are you?")
 
-        elif 'tell me a joke' in  query:
-            speak("which button cannot be pressed, beep, beep THE BELLYBUTTON")
-
-        elif 'where am i' in query:
-            speak("searching through your location")
-            speak("as per gps you have been located near thane,maharashtra")
-
-        elif 'roast alexa' in query:
-            speak("I am The Origenaile!!")
-        
-        elif 'thank you for your service' in query:
-            speak("You Are Welcome Sir!!")
-        
-        elif 'what is my schedule today' in query:
-            speak("according to your to do list")
-            speak("today you have only two thing to do")
-            speak("coding, Maths")
-
-        elif 'sing me a song' in query:
-            speak("singing a jist of bella ciao")
-            speak("una matina mi sono alzato, o bella ciao bella ciao bella ciao ciao ciao cioa")
-            speak("these are the first three lines of the song, do you like it")
+        elif 'open vs code' in query:
+            codepath = "C:\\Users\\USER\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
+            os.startfile(codepath)
